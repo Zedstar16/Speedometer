@@ -1,0 +1,8 @@
+name: Speedometer
+main: Zedstar16\Speedometer\Speedometer
+version: 1.0.0
+api: 3.0.0
+load: POSTWORLD
+author: Zedstar16
+description: Plugin to get speed of a player in m/s (blocks/s)
+website: https://github.com/Zedstar16/Speedometer

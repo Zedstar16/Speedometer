@@ -1,0 +1,12 @@
+
+# Whether to display the speed
+# For developers so they can choose to use this plugin as an API plugin
+display-speed: true
+
+# Whether the speed should only display when a player has an elytra equipped
+# When set to false the speed will display all the time
+display-only-with-elytra: true
+
+# Type of message that the speed displays as
+# Available options: popup, tip, action-bar
+display-type: "popup"
