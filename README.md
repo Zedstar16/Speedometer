@@ -10,6 +10,9 @@ static function calculateSpeed(Player $p, int $precision = 2): ?float
 ```
 Example Usage:
 ```php
+use Zedstar16/Speedometer/Speedometer;
+
+/** var Player $player */
 $speed = Speedometer::calculateSpeed($player, 1);
 $player->sendTip("Speed: $speed");
 ```
