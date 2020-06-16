@@ -34,36 +34,36 @@ class Speedometer extends PluginBase implements Listener
         $name = $p->getName();
         $pos = $p->getPosition()->asVector3();
         try {
-            if ($this->config["display-speed"]) {
-                if ($event->getTo()->distance($event->getFrom()) > 0) {
-                    if(($this->config["display-only-with-elytra"] && $p->getArmorInventory()->getChestplate()->getId() === ItemIds::ELYTRA) or !$this->config["display-only-with-elytra"]) {
-                        if (!isset($this->lastpos[$name][0])) {
-                            $this->lastpos[$name][0]["pos"] = $pos;
-                            $this->lastpos[$name][0]["time"] = microtime(true);
-                        } else {
-                            array_unshift($this->lastpos[$name], [
-                                "pos" => $pos,
-                                "time" => microtime(true)
-                            ]);
-                            if (count($this->lastpos[$name][0]) > 2) {
-                                array_pop($this->lastpos[$name]);
-                            }
-                            if (!isset($this->data[$name])) {
-                                self::$data[$name] = [];
-                            }
-                            $distance = $this->lastpos[$name][0]["pos"]->distance($this->lastpos[$name][1]["pos"]);
-                            $time = $this->lastpos[$name][0]["time"] - $this->lastpos[$name][1]["time"];
-                            array_unshift(self::$data[$name], [
-                                "distance" => $distance,
-                                "time" => $time,
-                                "timestamp" => microtime(true)
-                            ]);
-                            if (count(self::$data[$name]) > 100) {
-                                array_pop(self::$data[$name]);
-                            }
-                        }
+            if ($event->getTo()->distance($event->getFrom()) > 0) {
+                if (!isset($this->lastpos[$name][0])) {
+                    $this->lastpos[$name][0]["pos"] = $pos;
+                    $this->lastpos[$name][0]["time"] = microtime(true);
+                } else {
+                    array_unshift($this->lastpos[$name], [
+                        "pos" => $pos,
+                        "time" => microtime(true)
+                    ]);
+                    if (count($this->lastpos[$name][0]) > 2) {
+                        array_pop($this->lastpos[$name]);
+                    }
+                    if (!isset($this->data[$name])) {
+                        self::$data[$name] = [];
+                    }
+                    $distance = $this->lastpos[$name][0]["pos"]->distance($this->lastpos[$name][1]["pos"]);
+                    $time = $this->lastpos[$name][0]["time"] - $this->lastpos[$name][1]["time"];
+                    array_unshift(self::$data[$name], [
+                        "distance" => $distance,
+                        "time" => $time,
+                        "timestamp" => microtime(true)
+                    ]);
+                    if (count(self::$data[$name]) > 100) {
+                        array_pop(self::$data[$name]);
+                    }
+                }
+                if ($this->config["display-speed"]) {
+                    if (($this->config["display-only-with-elytra"] && $p->getArmorInventory()->getChestplate()->getId() === ItemIds::ELYTRA) or !$this->config["display-only-with-elytra"]) {
                         $speed = self::calculateSpeed($p, 2);
-                        if($speed !== null) {
+                        if ($speed !== null) {
                             $string = "§fSpeed: §b" . $speed . " §fm/s";
                             switch ($this->config["display-type"]) {
                                 case "popup":
@@ -110,5 +110,4 @@ class Speedometer extends PluginBase implements Listener
         }
         return null;
     }
-
 }
