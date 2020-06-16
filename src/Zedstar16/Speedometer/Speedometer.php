@@ -36,7 +36,7 @@ class Speedometer extends PluginBase implements Listener
         try {
             if ($this->config["display-speed"]) {
                 if ($event->getTo()->distance($event->getFrom()) > 0) {
-                    if(($this->config["display-only-with-elytra"] && ItemIds::ELYTRA) or !$this->config["display-only-with-elytra"]) {
+                    if(($this->config["display-only-with-elytra"] && $p->getArmorInventory()->getChestplate()->getId() === ItemIds::ELYTRA) or !$this->config["display-only-with-elytra"]) {
                         if (!isset($this->lastpos[$name][0])) {
                             $this->lastpos[$name][0]["pos"] = $pos;
                             $this->lastpos[$name][0]["time"] = microtime(true);
